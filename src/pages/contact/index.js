@@ -29,7 +29,7 @@ export default function Contact() {
     {
       type: "Email",
       icon: "lucide:mail",
-      value: "vishnuj@mail.com",
+      value: "vishnuj756@mail.com",
     },
     {
       type: "Phone",

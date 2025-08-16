@@ -105,11 +105,11 @@ export default function Home() {
           </div>
         </Container>
       </section>
-      <About/>
+      {/* <About/>
       <Service/>
       <Skill/>
       <Resume/>
-      <Contact/>
+      <Contact/> */}
     </>
   );
 }
