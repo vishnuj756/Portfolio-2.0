@@ -1,11 +1,9 @@
-import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import color from "../../utils/color";
 import about from "../../assests/images/about.jpg";
 import Button from "../../component/button";
-import Heading from "../../component/heading";
 import '../../assests/css/about.css'; // Custom CSS file
 import useResponsive from "../../utils/useResposnsive";
 

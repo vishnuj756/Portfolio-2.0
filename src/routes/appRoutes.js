@@ -3,7 +3,6 @@ import { useRoutes } from "react-router-dom";
 import Home from "../pages/landing";
 import About_us from "../pages/quick_links/about_us";
 import Contact from "../pages/contact";
-import Portfolio from "../pages/portfolio";
 import Resume from "../pages/resume";
 import Service from "../pages/service";
 
