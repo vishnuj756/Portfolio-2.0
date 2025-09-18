@@ -1,15 +1,15 @@
 // src/AppRoutes.js
 import { useRoutes } from "react-router-dom";
 import Home from "../pages/landing";
-import About_us from "../pages/quick_links/about_us";
 import Contact from "../pages/contact";
 import Resume from "../pages/resume";
 import Service from "../pages/service";
+import About from "../pages/about us";
 
 const AppRoutes = () => {
   let routes = useRoutes([
     { path: "/", element: <Home /> },
-    { path: "/about-us", element: <About_us /> },
+    { path: "/about-us", element: <About /> },
     { path: "/resume", element: <Resume /> },
     { path: "/service", element: <Service /> },
 
