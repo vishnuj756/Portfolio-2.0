@@ -34,6 +34,12 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle mobile menu link click
+  const handleMobileMenuClick = (path) => {
+    setActiveSection(path);
+    setShowOffcanvas(false); // Close mobile menu when link is clicked
+  };
+
   return (
     <>
       <style jsx>{`
@@ -67,7 +73,6 @@ const Header = () => {
         .brand-logo {
           display: flex;
           align-items: center;
-
           text-decoration: none;
           transition: all 0.3s ease;
         }
@@ -228,6 +233,7 @@ const Header = () => {
           transition: transform 0.3s ease;
           z-index: 1001;
           box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+          overflow-y: auto;
         }
 
         .mobile-menu.open {
@@ -430,7 +436,8 @@ const Header = () => {
                     activeSection === link.path ? "active" : ""
                   }`}
                   onClick={() => {
-                  setActiveSection(link.path)}}
+                    setActiveSection(link.path);
+                  }}
                 >
                   {link.name}
                 </NavLink>
@@ -501,19 +508,15 @@ const Header = () => {
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  {links.map((item) => {
-                    return (
-                      <>
-                        <NavLink
-                          to={item.path}
-                          className="mx-2 text-decoration-none fs-6 p-1"
-                          style={{ color: "white" }}
-                        >
-                          {item.name}
-                        </NavLink>
-                      </>
-                    );
-                  })}
+                  <NavLink
+                    to={link.path}
+                    className={`mobile-nav-link ${
+                      activeSection === link.path ? "active" : ""
+                    }`}
+                    onClick={() => handleMobileMenuClick(link.path)}
+                  >
+                    {link.name}
+                  </NavLink>
                 </motion.div>
               ))}
 
