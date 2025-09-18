@@ -146,7 +146,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="hero-section position-relative overflow-hidden">
+      <section className="hero-section position-relative overflow-hidden" style={{height:"fit-content"}}>
         {/* Enhanced Background Elements */}
         <div className="background-effects">
           <motion.div 
