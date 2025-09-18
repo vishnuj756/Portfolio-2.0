@@ -21,7 +21,6 @@ const {id}=props;
 
 
   const isMobile = deviceType === "mobile";
-  const isTablet = deviceType === "tablet";
 
   // Enhanced Animation Variants
   const containerVariants = {
@@ -83,17 +82,7 @@ const {id}=props;
     }
   };
 
-  const statsCountAnimation = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: "backOut"
-      }
-    }
-  };
+
 
   return (
 
