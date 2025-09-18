@@ -9,9 +9,9 @@ import Heading from "../../component/heading";
 import '../../assests/css/about.css'; // Custom CSS file
 import useResponsive from "../../utils/useResposnsive";
 
-export default function About() {
+export default function About(props) {
   const { deviceType } = useResponsive();
-
+const {id}=props;
   const data = [
     { key: "D.O.B", value: "Feb 1, 2002", icon: "material-symbols:cake-outline" },
     { key: "Phone", value: "+91 8871942880", icon: "material-symbols:phone-outline" },
@@ -98,7 +98,35 @@ export default function About() {
   };
 
   return (
-    <section className="about-section position-relative">
+
+    <>
+      <style jsx>{`
+          .resume-header {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+
+        .resume-title {
+          font-size: 3.5rem;
+          font-weight: 800;
+          color: white;
+          margin-bottom: 1rem;
+          background: linear-gradient(135deg, ${color.primary}, #00B4A6);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .resume-subtitle {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 1.2rem;
+          max-width: 600px;
+          margin: 0 auto;
+          line-height: 1.6;
+        }`}
+
+      </style>
+      <section className="about-section position-relative" id={id}>
       {/* Background Effects */}
       <div className="about-background-effects">
         <motion.div 
@@ -131,26 +159,24 @@ export default function About() {
 
       <Container className="position-relative">
         {/* Enhanced Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-5"
-        >
-          <Heading name="ABOUT ME" />
-          <motion.p 
-            className="about-subtitle"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            Get to know more about who I am, what I do, and what I'm passionate about
-          </motion.p>
-        </motion.div>
 
-        <Row className="align-items-center mb-5">
+         <motion.div
+                    className="resume-header"
+                    initial={{ opacity: 0, y: -50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    <h2 className="resume-title">
+                      About  <span style={{ color: color.primary }}>Me</span>
+                    </h2>
+                    <p className="resume-subtitle">
+            Get to know more about who I am, what I do, and what I'm passionate about
+                    </p>
+                  </motion.div>
+      
+
+        <Row className="align-items-center ">
           {/* Image Column */}
           <Col lg={6} md={12} className={`mb-4 mb-lg-0 ${isMobile ? 'text-center' : ''}`}>
             <motion.div
@@ -301,5 +327,7 @@ export default function About() {
     
       </Container>
     </section>
+    </>
+    
   );
 }
