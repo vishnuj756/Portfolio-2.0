@@ -106,6 +106,8 @@ const Resume = (props) => {
         <meta name="description" content="View Vishal Sivhare's resume, including education, experience, skills, and achievements in full-stack development." />
         <meta name="keywords" content="resume, Vishal Sivhare, experience, skills, education" />
         <meta name="robots" content="index, follow" />
+        <meta name="author" content="Vishal Sivhare" />
+        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
         <meta property="og:title" content="Resume - Vishal Sivhare" />
         <meta property="og:description" content="View Vishal Sivhare's resume." />
         <meta property="og:type" content="website" />

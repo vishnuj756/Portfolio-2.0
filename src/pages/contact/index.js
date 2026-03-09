@@ -150,6 +150,8 @@ const Contact = (props) => {
         <meta name="description" content="Get in touch with Vishal Sivhare. Contact me for collaborations, projects, or inquiries about full-stack development services." />
         <meta name="keywords" content="contact, Vishal Sivhare, email, phone, collaboration" />
         <meta name="robots" content="index, follow" />
+        <meta name="author" content="Vishal Sivhare" />
+        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
         <meta property="og:title" content="Contact - Vishal Sivhare" />
         <meta property="og:description" content="Get in touch with Vishal Sivhare." />
         <meta property="og:type" content="website" />

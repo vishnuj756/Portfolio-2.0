@@ -137,6 +137,8 @@ const Service = (props) => {
         <meta name="description" content="Explore the services offered by Vishal Sivhare, including web development, full-stack solutions, and custom software development." />
         <meta name="keywords" content="services, Vishal Sivhare, web development, full-stack, software development" />
         <meta name="robots" content="index, follow" />
+        <meta name="author" content="Vishal Sivhare" />
+        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
         <meta property="og:title" content="Services - Vishal Sivhare" />
         <meta property="og:description" content="Explore Vishal Sivhare's services." />
         <meta property="og:type" content="website" />

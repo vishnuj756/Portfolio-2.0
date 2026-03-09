@@ -118,6 +118,8 @@ export default function About(props) {
         <meta name="description" content="Learn more about Vishal Sivhare, a passionate full-stack developer with expertise in React, Node.js, and modern web technologies." />
         <meta name="keywords" content="about Vishal Sivhare, full-stack developer, biography, skills" />
         <meta name="robots" content="index, follow" />
+        <meta name="author" content="Vishal Sivhare" />
+        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
         <meta property="og:title" content="About Vishal Sivhare" />
         <meta property="og:description" content="Learn more about Vishal Sivhare." />
         <meta property="og:type" content="website" />

@@ -107,6 +107,8 @@ export default function Home() {
         <meta name="description" content="Welcome to Vishal Sivhare's portfolio website. Explore my projects, skills, and services as a full-stack developer." />
         <meta name="keywords" content="Vishal Sivhare, portfolio, full-stack developer, React, Node.js, projects" />
         <meta name="robots" content="index, follow" />
+        <meta name="author" content="Vishal Sivhare" />
+        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
         <meta property="og:title" content="Vishal Sivhare - Portfolio" />
         <meta property="og:description" content="Welcome to Vishal Sivhare's portfolio website." />
         <meta property="og:type" content="website" />
@@ -116,7 +118,7 @@ export default function Home() {
             "@type": "Person",
             "name": "Vishal Sivhare",
             "jobTitle": "Full-Stack Developer",
-            "url": "https://yourwebsite.com",
+            "url": "https://vishalshivhare.netlify.app",
             "sameAs": [
               "https://linkedin.com/in/vishal-sivhare",
               "https://github.com/vishal-sivhare"
