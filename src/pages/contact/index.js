@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 
 const Contact = (props) => {
     const {id}=props;
@@ -144,6 +145,15 @@ const Contact = (props) => {
 
   return (
     <>
+      <Helmet>
+        <title>Contact | Vishal Sivhare Portfolio</title>
+        <meta name="description" content="Get in touch with Vishal Sivhare. Contact me for collaborations, projects, or inquiries about full-stack development services." />
+        <meta name="keywords" content="contact, Vishal Sivhare, email, phone, collaboration" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Contact - Vishal Sivhare" />
+        <meta property="og:description" content="Get in touch with Vishal Sivhare." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <style jsx>{`
         .contact-section {
           background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);

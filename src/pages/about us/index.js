@@ -7,6 +7,7 @@ import Button from "../../component/button";
 import "../../assests/css/about.css"; // Custom CSS file
 import useResponsive from "../../utils/useResposnsive";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 
 export default function About(props) {
   const { deviceType } = useResponsive();
@@ -112,6 +113,15 @@ export default function About(props) {
 
   return (
     <>
+      <Helmet>
+        <title>About Vishal Sivhare | Portfolio</title>
+        <meta name="description" content="Learn more about Vishal Sivhare, a passionate full-stack developer with expertise in React, Node.js, and modern web technologies." />
+        <meta name="keywords" content="about Vishal Sivhare, full-stack developer, biography, skills" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="About Vishal Sivhare" />
+        <meta property="og:description" content="Learn more about Vishal Sivhare." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <style jsx>
         {`
           .resume-header {

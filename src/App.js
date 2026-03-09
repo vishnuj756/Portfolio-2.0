@@ -1,5 +1,5 @@
 import Header from "./component/header";
-import Footer from "./pages/footer";
+// import Footer from "./pages/footer";
 import AppRoutes from "./routes/appRoutes";
 
 function App() {

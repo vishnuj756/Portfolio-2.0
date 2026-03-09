@@ -14,6 +14,7 @@ import Contact from "../contact";
 import "../../assests/css/home.css"; // Custom CSS file
 import useResponsive from "../../utils/useResposnsive";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 
 export default function Home() {
   const { deviceType } = useResponsive();
@@ -101,6 +102,28 @@ export default function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>Vishal Sivhare - Portfolio | Home</title>
+        <meta name="description" content="Welcome to Vishal Sivhare's portfolio website. Explore my projects, skills, and services as a full-stack developer." />
+        <meta name="keywords" content="Vishal Sivhare, portfolio, full-stack developer, React, Node.js, projects" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Vishal Sivhare - Portfolio" />
+        <meta property="og:description" content="Welcome to Vishal Sivhare's portfolio website." />
+        <meta property="og:type" content="website" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Vishal Sivhare",
+            "jobTitle": "Full-Stack Developer",
+            "url": "https://yourwebsite.com",
+            "sameAs": [
+              "https://linkedin.com/in/vishal-sivhare",
+              "https://github.com/vishal-sivhare"
+            ]
+          })}
+        </script>
+      </Helmet>
       <section
         id="/"
         className="hero-section position-relative overflow-hidden"

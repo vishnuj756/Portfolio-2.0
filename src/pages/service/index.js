@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from 'react-helmet-async';
 
 const Service = (props) => {
   const {id}=props;
@@ -131,6 +132,15 @@ const Service = (props) => {
 
   return (
     <>
+      <Helmet>
+        <title>Services | Vishal Sivhare Portfolio</title>
+        <meta name="description" content="Explore the services offered by Vishal Sivhare, including web development, full-stack solutions, and custom software development." />
+        <meta name="keywords" content="services, Vishal Sivhare, web development, full-stack, software development" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Services - Vishal Sivhare" />
+        <meta property="og:description" content="Explore Vishal Sivhare's services." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <style jsx>{`
         .services-section {
           background: linear-gradient(

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 
 const Resume = (props) => {
     const {id}=props;
@@ -100,6 +101,15 @@ const Resume = (props) => {
 
   return (
     <>
+      <Helmet>
+        <title>Resume | Vishal Sivhare Portfolio</title>
+        <meta name="description" content="View Vishal Sivhare's resume, including education, experience, skills, and achievements in full-stack development." />
+        <meta name="keywords" content="resume, Vishal Sivhare, experience, skills, education" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Resume - Vishal Sivhare" />
+        <meta property="og:description" content="View Vishal Sivhare's resume." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       <style jsx>{`
         .resume-section {
           background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
