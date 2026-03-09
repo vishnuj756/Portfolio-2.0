@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
+import Seo from "../../component/seo";
 
 const Contact = (props) => {
     const {id}=props;
@@ -145,17 +145,15 @@ const Contact = (props) => {
 
   return (
     <>
-      <Helmet>
-        <title>Contact | Vishal Sivhare Portfolio</title>
-        <meta name="description" content="Get in touch with Vishal Sivhare. Contact me for collaborations, projects, or inquiries about full-stack development services." />
-        <meta name="keywords" content="contact, Vishal Sivhare, email, phone, collaboration" />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="Vishal Sivhare" />
-        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
-        <meta property="og:title" content="Contact - Vishal Sivhare" />
-        <meta property="og:description" content="Get in touch with Vishal Sivhare." />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <Seo
+        title="Contact Vishal Sivhare | Full-Stack Developer & React Expert"
+        description="Reach out to full-stack developer Vishal Sivhare for collaborations, projects or inquiries. Experienced in React, Node.js, and modern web technologies."
+        keywords="contact, Vishal Sivhare, full-stack developer, React developer, web development, email, phone, collaboration"
+        image="https://vishalshivhare.netlify.app/assests/images/hero-img.jpg"
+        gaTrackingId={process.env.REACT_APP_GA_ID}
+      />
+      {/* main heading for accessibility */}
+      <h1 className="sr-only">Contact Vishal Sivhare</h1>
       <style jsx>{`
         .contact-section {
           background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);

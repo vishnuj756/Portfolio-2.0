@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
+import Seo from "../../component/seo";
 
 const Resume = (props) => {
     const {id}=props;
@@ -101,17 +101,13 @@ const Resume = (props) => {
 
   return (
     <>
-      <Helmet>
-        <title>Resume | Vishal Sivhare Portfolio</title>
-        <meta name="description" content="View Vishal Sivhare's resume, including education, experience, skills, and achievements in full-stack development." />
-        <meta name="keywords" content="resume, Vishal Sivhare, experience, skills, education" />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="Vishal Sivhare" />
-        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
-        <meta property="og:title" content="Resume - Vishal Sivhare" />
-        <meta property="og:description" content="View Vishal Sivhare's resume." />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <Seo
+        title="Resume | Full-Stack Developer Vishal Sivhare"
+        description="View Vishal Sivhare's resume with education, experience and skills in React, Node.js, and modern web development."
+        keywords="resume, full-stack developer, Vishal Sivhare, React, Node.js, experience, skills, education"
+        image="https://vishalshivhare.netlify.app/assests/images/hero-img.jpg"
+        gaTrackingId={process.env.REACT_APP_GA_ID}
+      />
       <style jsx>{`
         .resume-section {
           background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);

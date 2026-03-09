@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Helmet } from 'react-helmet-async';
+import Seo from "../../component/seo";
 
 const Service = (props) => {
   const {id}=props;
@@ -132,17 +132,13 @@ const Service = (props) => {
 
   return (
     <>
-      <Helmet>
-        <title>Services | Vishal Sivhare Portfolio</title>
-        <meta name="description" content="Explore the services offered by Vishal Sivhare, including web development, full-stack solutions, and custom software development." />
-        <meta name="keywords" content="services, Vishal Sivhare, web development, full-stack, software development" />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="Vishal Sivhare" />
-        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
-        <meta property="og:title" content="Services - Vishal Sivhare" />
-        <meta property="og:description" content="Explore Vishal Sivhare's services." />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <Seo
+        title="Services | Full-Stack Web Development by Vishal Sivhare"
+        description="Explore services from full-stack developer Vishal Sivhare: React apps, Node.js backends, and custom software solutions."
+        keywords="services, full-stack developer, React developer, Node.js, web development, Vishal Sivhare"
+        image="https://vishalshivhare.netlify.app/assests/images/hero-img.jpg"
+        gaTrackingId={process.env.REACT_APP_GA_ID}
+      />
       <style jsx>{`
         .services-section {
           background: linear-gradient(

@@ -1,7 +1,7 @@
 import React from "react";
 import Heading from "../../component/heading";
 import Qt from "../../assests/images/size1.jpg";
-import { Helmet } from 'react-helmet-async';
+import Seo from "../../component/seo";
 export default function Portfolio() {
   const data = [
     {
@@ -35,33 +35,29 @@ export default function Portfolio() {
   ];
   return (
     <div>
-      <Helmet>
-        <title>Portfolio | Vishal Sivhare</title>
-        <meta name="description" content="Explore Vishal Sivhare's portfolio of projects, including web development, full-stack applications, and innovative solutions." />
-        <meta name="keywords" content="portfolio, projects, Vishal Sivhare, web development, full-stack" />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="Vishal Sivhare" />
-        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
-        <meta property="og:title" content="Portfolio - Vishal Sivhare" />
-        <meta property="og:description" content="Explore Vishal Sivhare's portfolio of projects." />
-        <meta property="og:type" content="website" />
-        {data.map((item, index) => (
-          <script key={index} type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "CreativeWork",
-              "name": item.title,
-              "description": item.description,
-              "genre": item.category,
-              "author": {
-                "@type": "Person",
-                "name": "Vishal Sivhare"
-              },
-              "url": `https://vishalshivhare.netlify.app/portfolio#${item.title.toLowerCase().replace(/\s+/g, '-')}`
-            })}
-          </script>
-        ))}
-      </Helmet>
+      <Seo
+        title="Portfolio | Projects by Full-Stack Developer Vishal Sivhare"
+        description="Explore Vishal Sivhare's portfolio of web development and full-stack applications built using React, Node.js, and more."
+        keywords="portfolio, projects, full-stack developer, React, Node.js, Vishal Sivhare, web development"
+        image="https://vishalshivhare.netlify.app/assests/images/hero-img.jpg"
+        gaTrackingId={process.env.REACT_APP_GA_ID}
+      />
+      {data.map((item, index) => (
+        <script key={index} type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "name": item.title,
+            "description": item.description,
+            "genre": item.category,
+            "author": {
+              "@type": "Person",
+              "name": "Vishal Sivhare"
+            },
+            "url": `https://vishalshivhare.netlify.app/portfolio#${item.title.toLowerCase().replace(/\s+/g, '-')}`
+          })}
+        </script>
+      ))}
       <Heading name={"Portfolio"} />
       <div className="container">
         <div className="row">

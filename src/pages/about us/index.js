@@ -7,7 +7,7 @@ import Button from "../../component/button";
 import "../../assests/css/about.css"; // Custom CSS file
 import useResponsive from "../../utils/useResposnsive";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from 'react-helmet-async';
+import Seo from "../../component/seo";
 
 export default function About(props) {
   const { deviceType } = useResponsive();
@@ -113,17 +113,13 @@ export default function About(props) {
 
   return (
     <>
-      <Helmet>
-        <title>About Vishal Sivhare | Portfolio</title>
-        <meta name="description" content="Learn more about Vishal Sivhare, a passionate full-stack developer with expertise in React, Node.js, and modern web technologies." />
-        <meta name="keywords" content="about Vishal Sivhare, full-stack developer, biography, skills" />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="Vishal Sivhare" />
-        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
-        <meta property="og:title" content="About Vishal Sivhare" />
-        <meta property="og:description" content="Learn more about Vishal Sivhare." />
-        <meta property="og:type" content="website" />
-      </Helmet>
+      <Seo
+        title="About Vishal Sivhare | Full-Stack Developer Portfolio"
+        description="Learn more about Vishal Sivhare, a passionate full-stack developer with expertise in React, Node.js, and modern web technologies."
+        keywords="about Vishal Sivhare, full-stack developer, React developer, Node.js, biography, skills"
+        image="https://vishalshivhare.netlify.app/assests/images/hero-img.jpg"
+        gaTrackingId={process.env.REACT_APP_GA_ID}
+      />
       <style jsx>
         {`
           .resume-header {

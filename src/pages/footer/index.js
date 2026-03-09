@@ -662,7 +662,7 @@ const Footer = () => {
               <nav className="footer-nav">
                 <a href="/privacy">Privacy Policy</a>
                 <a href="/terms">Terms of Service</a>
-                <a href="/sitemap">Sitemap</a>
+                <a href="/sitemap.xml">Sitemap</a>
               </nav>
             </div>
           </div>

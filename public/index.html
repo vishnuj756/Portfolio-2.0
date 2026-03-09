@@ -36,6 +36,7 @@
     <meta property="og:image" content="%PUBLIC_URL%/portfolio-preview.png" />
     <meta property="og:url" content="https://yourdomain.com" />
     <meta property="og:site_name" content="Vishal Shivhare Portfolio" />
+    <link rel="alternate" href="https://vishalshivhare.netlify.app/" hreflang="en" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -51,6 +52,15 @@
 
     <!-- Manifest for PWA -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!-- Google Analytics (replace UA-XXXXX-Y with your tracking ID) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-XXXXX-Y');
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

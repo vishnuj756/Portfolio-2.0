@@ -14,7 +14,7 @@ import Contact from "../contact";
 import "../../assests/css/home.css"; // Custom CSS file
 import useResponsive from "../../utils/useResposnsive";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from 'react-helmet-async';
+import Seo from "../../component/seo";
 
 export default function Home() {
   const { deviceType } = useResponsive();
@@ -102,30 +102,26 @@ export default function Home() {
 
   return (
     <>
-      <Helmet>
-        <title>Vishal Sivhare - Portfolio | Home</title>
-        <meta name="description" content="Welcome to Vishal Sivhare's portfolio website. Explore my projects, skills, and services as a full-stack developer." />
-        <meta name="keywords" content="Vishal Sivhare, portfolio, full-stack developer, React, Node.js, projects" />
-        <meta name="robots" content="index, follow" />
-        <meta name="author" content="Vishal Sivhare" />
-        <link rel="canonical" href={`https://vishalshivhare.netlify.app${window.location.pathname}`} />
-        <meta property="og:title" content="Vishal Sivhare - Portfolio" />
-        <meta property="og:description" content="Welcome to Vishal Sivhare's portfolio website." />
-        <meta property="og:type" content="website" />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Vishal Sivhare",
-            "jobTitle": "Full-Stack Developer",
-            "url": "https://vishalshivhare.netlify.app",
-            "sameAs": [
-              "https://linkedin.com/in/vishal-sivhare",
-              "https://github.com/vishal-sivhare"
-            ]
-          })}
-        </script>
-      </Helmet>
+      <Seo
+        title="Vishal Sivhare - Portfolio | Full-Stack Developer Home"
+        description="Welcome to Vishal Sivhare's portfolio website. Explore my projects, skills, and services as a full-stack developer specializing in React and Node.js."
+        keywords="Vishal Sivhare, portfolio, full-stack developer, React developer, Node.js, web development, projects"
+        image="https://vishalshivhare.netlify.app/assests/images/hero-img.jpg"
+        gaTrackingId={process.env.REACT_APP_GA_ID}
+      />
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Vishal Sivhare",
+          "jobTitle": "Full-Stack Developer",
+          "url": "https://vishalshivhare.netlify.app",
+          "sameAs": [
+            "https://linkedin.com/in/vishal-sivhare",
+            "https://github.com/vishal-sivhare"
+          ]
+        })}
+      </script>
       <section
         id="/"
         className="hero-section position-relative overflow-hidden"
