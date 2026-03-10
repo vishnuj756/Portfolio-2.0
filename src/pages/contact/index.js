@@ -152,8 +152,7 @@ const Contact = (props) => {
         image="https://vishalshivhare.netlify.app/assests/images/hero-img.jpg"
         gaTrackingId={process.env.REACT_APP_GA_ID}
       />
-      {/* main heading for accessibility */}
-      <h1 className="sr-only">Contact Vishal Sivhare</h1>
+    
       <style jsx>{`
         .contact-section {
           background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
