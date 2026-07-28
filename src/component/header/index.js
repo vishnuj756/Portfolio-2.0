@@ -1,539 +1,165 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import logo from "../../assests/images/logo_new.png";
-import { NavLink } from "react-router-dom";
+
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("/");
-  const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
-  // Your actual data structure
-  const color = {
-    primary: "#00D4AA",
-    white: "#ffffff",
-    dark: "#070D1B",
-  };
-
-  const links = [
-    { name: "HOME", path: "/" },
-    { name: "ABOUT", path: "/about-us" },
-    { name: "Resume", path: "/resume" },
-    { name: "Service", path: "/service" },
-    { name: "CONTACT", path: "/contact-us" },
-  ];
-
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      setScrolled(isScrolled);
-    };
+      setScrolled(window.scrollY > 20);
 
+      // Determine active section based on scroll position
+      const sections = ['home', 'about', 'services', 'projects', 'testimonials', 'contact'];
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(section);
+            // Optionally update URL smoothly (without jumping) on scroll
+            if (window.location.pathname !== `/${section === 'home' ? '' : section}`) {
+              window.history.replaceState(null, '', `/${section === 'home' ? '' : section}`);
+            }
+            break;
+          }
+        }
+      }
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle mobile menu link click
-  const handleMobileMenuClick = (path) => {
-    setActiveSection(path);
-    setShowOffcanvas(false); // Close mobile menu when link is clicked
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle("dark");
+  };
+
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    setActiveSection(targetId);
+    
+    // Update URL without hash jump
+    window.history.pushState(null, '', `/${targetId === 'home' ? '' : targetId}`);
+
+    if (targetId === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const element = document.getElementById(targetId);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }
   };
 
   return (
     <>
-      <style jsx>{`
-        .modern-navbar {
-          background: ${scrolled
-            ? "rgba(7, 13, 27, 0.95)"
-            : "rgba(7, 13, 27, 0.85)"};
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(0, 212, 170, 0.1);
-          transition: all 0.4s ease;
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 1000;
-          padding: ${scrolled ? "0.3rem 0" : "0rem 0"};
-          box-shadow: ${scrolled
-            ? "0 8px 32px rgba(0, 0, 0, 0.2)"
-            : "0 4px 16px rgba(0, 0, 0, 0.1)"};
-        }
+      <nav id="navbar" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm" : ""}`}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            <a href="#home" onClick={(e) => handleNavClick(e, "home")} className="group flex items-center gap-3">
+              <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center shadow-lg transition-all duration-300">
+                <span className="text-2xl font-black text-white">VS</span>
+              </div>
+              <div className="hidden xl:block">
+                <div className="text-xl font-black text-gray-900 dark:text-white group-hover:text-gradient transition-all">Vishal Sivhare</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400">MERN Stack Developer</div>
+              </div>
+            </a>
 
-        .navbar-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0 2rem;
-        }
-
-        .brand-logo {
-          display: flex;
-          align-items: center;
-          text-decoration: none;
-          transition: all 0.3s ease;
-        }
-
-        .brand-logo:hover {
-          transform: translateY(-2px);
-        }
-
-        .logo-img {
-          width: ${scrolled ? "80px" : "100px"};
-        }
-
-        .brand-text {
-          display: flex;
-        }
-
-        .brand-v {
-          font-size: ${scrolled ? "1.4rem" : "1.6rem"};
-          font-weight: 500;
-          color: ${color.primary};
-          transition: all 0.4s ease;
-          margin-right: 2px;
-        }
-
-        .brand-name {
-          font-size: ${scrolled ? "1.8rem" : "2rem"};
-          font-weight: 800;
-          color: ${color.white};
-          transition: all 0.4s ease;
-        }
-
-        .nav-menu {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-
-        .nav-item {
-          position: relative;
-        }
-
-        .nav-link {
-          color: rgba(255, 255, 255, 0.9);
-          text-decoration: none;
-          font-size: 0.95rem;
-          font-weight: 500;
-          padding: 0.8rem 1.5rem;
-          border-radius: 8px;
-          transition: all 0.3s ease;
-          position: relative;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          font-size: 0.85rem;
-        }
-
-        .nav-link::before {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          width: 0;
-          height: 2px;
-          background: ${color.primary};
-          transition: all 0.3s ease;
-          transform: translateX(-50%);
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-          color: ${color.primary};
-          background: rgba(0, 212, 170, 0.1);
-        }
-
-        .nav-link:hover::before,
-        .nav-link.active::before {
-          width: 80%;
-        }
-
-        .contact-info {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          padding: 0.6rem 1.5rem;
-          background: linear-gradient(
-            135deg,
-            ${color.primary}20,
-            ${color.primary}10
-          );
-          border: 1px solid rgba(0, 212, 170, 0.3);
-          border-radius: 50px;
-          transition: all 0.3s ease;
-        }
-
-        .contact-info:hover {
-          background: linear-gradient(
-            135deg,
-            ${color.primary}30,
-            ${color.primary}20
-          );
-          border-color: ${color.primary};
-          transform: translateY(-1px);
-          box-shadow: 0 4px 20px rgba(0, 212, 170, 0.2);
-        }
-
-        .phone-icon {
-          font-size: 1.1rem;
-        }
-
-        .phone-number {
-          color: ${color.primary};
-          font-size: 0.95rem;
-          font-weight: 600;
-          margin: 0;
-        }
-
-        .mobile-toggle {
-          display: none;
-          background: none;
-          border: 2px solid rgba(0, 212, 170, 0.3);
-          border-radius: 8px;
-          padding: 0.5rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .mobile-toggle:hover {
-          border-color: ${color.primary};
-          background: rgba(0, 212, 170, 0.1);
-        }
-
-        .hamburger {
-          width: 24px;
-          height: 20px;
-          position: relative;
-        }
-
-        .hamburger span {
-          display: block;
-          width: 100%;
-          height: 2px;
-          background: ${color.primary};
-          margin: 4px 0;
-          transition: all 0.3s ease;
-          border-radius: 1px;
-        }
-
-        .mobile-menu {
-          position: fixed;
-          top: 0;
-          right: 0;
-          width: 320px;
-          height: 100vh;
-          background: linear-gradient(135deg, #070d1b 0%, #1a1a2e 100%);
-          transform: translateX(100%);
-          transition: transform 0.3s ease;
-          z-index: 1001;
-          box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
-          overflow-y: auto;
-        }
-
-        .mobile-menu.open {
-          transform: translateX(0);
-        }
-
-        .mobile-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.5);
-          z-index: 1000;
-          opacity: 0;
-          visibility: hidden;
-          transition: all 0.3s ease;
-        }
-
-        .mobile-overlay.open {
-          opacity: 1;
-          visibility: visible;
-        }
-
-        .mobile-header {
-          padding: 2rem 1.5rem;
-          border-bottom: 1px solid rgba(0, 212, 170, 0.2);
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        .mobile-title {
-          color: ${color.white};
-          font-size: 1.2rem;
-          font-weight: 600;
-          margin: 0;
-        }
-
-        .close-btn {
-          background: none;
-          border: 2px solid ${color.primary};
-          color: ${color.primary};
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.2rem;
-        }
-
-        .close-btn:hover {
-          background: ${color.primary};
-          color: #000;
-        }
-
-        .mobile-nav {
-          padding: 2rem 1.5rem;
-        }
-
-        .mobile-nav-item {
-          margin-bottom: 0.5rem;
-        }
-
-        .mobile-nav-link {
-          color: rgba(255, 255, 255, 0.9);
-          text-decoration: none;
-          font-size: 1.1rem;
-          font-weight: 500;
-          padding: 1rem 1.5rem;
-          border-radius: 10px;
-          display: block;
-          transition: all 0.3s ease;
-          border: 1px solid transparent;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          font-size: 0.9rem;
-        }
-
-        .mobile-nav-link:hover,
-        .mobile-nav-link.active {
-          color: ${color.primary};
-          background: rgba(0, 212, 170, 0.1);
-          border-color: rgba(0, 212, 170, 0.3);
-          transform: translateX(10px);
-        }
-
-        .mobile-contact {
-          margin-top: 2rem;
-          padding: 1.5rem;
-          background: rgba(0, 212, 170, 0.1);
-          border: 1px solid rgba(0, 212, 170, 0.3);
-          border-radius: 12px;
-          text-align: center;
-        }
-
-        .mobile-contact-title {
-          color: rgba(255, 255, 255, 0.8);
-          font-size: 0.9rem;
-          margin-bottom: 0.5rem;
-        }
-
-        .mobile-phone {
-          color: ${color.primary};
-          font-size: 1.2rem;
-          font-weight: 600;
-          margin: 0;
-        }
-
-        /* Responsive */
-        @media (max-width: 991px) {
-          .nav-menu {
-            display: none;
-          }
-
-          .contact-info {
-            display: none;
-          }
-
-          .mobile-toggle {
-            display: block;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .navbar-container {
-            padding: 0 1rem;
-          }
-
-          .mobile-menu {
-            width: 280px;
-          }
-
-          .brand-v,
-          .brand-name {
-            font-size: 1rem;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .mobile-menu {
-            width: 100%;
-          }
-
-          .navbar-container {
-            padding: 0 0.5rem;
-          }
-        }
-      `}</style>
-
-      {/* Global body padding */}
-      <style jsx global>{`
-        body {
-          padding-top: 85px;
-        }
-      `}</style>
-
-      <motion.nav
-        className="modern-navbar"
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <div className="navbar-container">
-          {/* Brand Logo */}
-          <motion.a
-            href="/"
-            className="brand-logo"
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-          >
-            <img src={logo} alt="Logo" className="logo-img" />
-            <div className="brand-text flex-column">
-              <span className="brand-v text-white ">Vishal Shivhare </span>
-              <h6
-                className="text-secondary text-start"
-                style={{ fontSize: 14 }}
-              >
-                Front End Developer
-              </h6>
-            </div>
-          </motion.a>
-
-          {/* Desktop Navigation */}
-          <ul className="nav-menu">
-            {links.map((link, index) => (
-              <motion.li
-                key={link.name}
-                className="nav-item"
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.4 }}
-              >
-                <NavLink
-                  to={link.path}
-                  className={`nav-link ${
-                    activeSection === link.path ? "active" : ""
+            <div className="hidden lg:flex items-center gap-1">
+              {['home', 'about', 'services', 'projects', 'testimonials', 'contact'].map((item) => (
+                <a 
+                  key={item}
+                  href={`/${item === 'home' ? '' : item}`}
+                  onClick={(e) => handleNavClick(e, item)}
+                  className={`px-4 py-2 font-medium transition-all capitalize ${
+                    activeSection === item 
+                      ? 'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400' 
+                      : 'text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400'
                   }`}
-                  onClick={() => {
-                    setActiveSection(link.path);
-                  }}
                 >
-                  {link.name}
-                </NavLink>
-              </motion.li>
-            ))}
-          </ul>
-
-          {/* Contact Info */}
-          <motion.div
-            className="contact-info"
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.4 }}
-            whileHover={{ scale: 1.02 }}
-          >
-            <span className="phone-icon">📞</span>
-            <p className="phone-number">+91 8871942880</p>
-          </motion.div>
-
-          {/* Mobile Toggle */}
-          <button
-            className="mobile-toggle"
-            onClick={() => setShowOffcanvas(true)}
-          >
-            <div className="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
+                  {item}
+                </a>
+              ))}
             </div>
-          </button>
-        </div>
-      </motion.nav>
 
-      {/* Mobile Overlay */}
-      <div
-        className={`mobile-overlay ${showOffcanvas ? "open" : ""}`}
-        onClick={() => setShowOffcanvas(false)}
-      />
+            <div className="flex items-center gap-4">
+              <button onClick={toggleTheme} className="flex w-10 h-10 items-center justify-center rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-pink-500 transition-all duration-300 hover:scale-110 group cursor-pointer" aria-label="Toggle theme">
+                <svg className="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-white transition-colors dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </button>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {showOffcanvas && (
-          <motion.div
-            className={`mobile-menu ${showOffcanvas ? "open" : ""}`}
-            initial={{ x: 320 }}
-            animate={{ x: 0 }}
-            exit={{ x: 320 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          >
-            {/* Mobile Header */}
-            <div className="mobile-header">
-              <h3 className="mobile-title">Menu</h3>
-              <button
-                className="close-btn"
-                onClick={() => setShowOffcanvas(false)}
-              >
-                ×
+              <a href="/contact" onClick={(e) => handleNavClick(e, "contact")} className="hidden lg:inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-pink-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                Hire Me
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+
+              <button onClick={() => setIsMobileMenuOpen(true)} className="lg:hidden flex flex-col gap-1.5 w-10 h-10 items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-indigo-500 dark:hover:bg-indigo-500 transition-colors cursor-pointer" aria-label="Toggle menu">
+                <span className="w-6 h-0.5 bg-gray-700 dark:bg-gray-300 rounded-full"></span>
+                <span className="w-6 h-0.5 bg-gray-700 dark:bg-gray-300 rounded-full"></span>
+                <span className="w-6 h-0.5 bg-gray-700 dark:bg-gray-300 rounded-full"></span>
               </button>
             </div>
+          </div>
+        </div>
 
-            {/* Mobile Navigation */}
-            <div className="mobile-nav">
-              {links.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  className="mobile-nav-item"
-                  initial={{ x: -50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <NavLink
-                    to={link.path}
-                    className={`mobile-nav-link ${
-                      activeSection === link.path ? "active" : ""
-                    }`}
-                    onClick={() => handleMobileMenuClick(link.path)}
-                  >
-                    {link.name}
-                  </NavLink>
-                </motion.div>
-              ))}
-
-              {/* Mobile Contact */}
-              <motion.div
-                className="mobile-contact"
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-              >
-                <p className="mobile-contact-title">Get in touch</p>
-                <p className="mobile-phone">+91 8871942880</p>
-              </motion.div>
+        {/* Mobile Menu */}
+        <div className={`lg:hidden fixed inset-0 bg-white dark:bg-gray-900 z-[999] transform ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 min-h-screen overflow-y-auto`}>
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+              <a href="/" onClick={(e) => handleNavClick(e, "home")} className="group flex items-center gap-3">
+                <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center shadow-lg">
+                  <span className="text-2xl font-black text-white">VS</span>
+                </div>
+                <div>
+                  <div className="text-xl font-black text-gray-900 dark:text-white">Vishal Sivhare</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400">MERN Stack Developer</div>
+                </div>
+              </a>
+              <button onClick={() => setIsMobileMenuOpen(false)} className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-red-500 transition-colors cursor-pointer" aria-label="Close menu">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <nav className="flex-1 flex flex-col gap-2 p-6 overflow-y-auto">
+              {['home', 'about', 'services', 'projects', 'testimonials', 'contact'].map((item) => (
+                <a 
+                  key={item}
+                  href={`/${item === 'home' ? '' : item}`} 
+                  onClick={(e) => handleNavClick(e, item)}
+                  className={`mobile-nav-link px-6 py-4 text-lg font-semibold rounded-xl transition-all capitalize ${
+                    activeSection === item
+                      ? 'bg-gradient-to-r from-indigo-500 to-pink-500 text-white'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-indigo-500/20 hover:to-pink-500/20 hover:text-indigo-600 dark:hover:text-indigo-400'
+                  }`}
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
+            <div className="p-6 border-t border-gray-200 dark:border-gray-800">
+              <a href="/contact" onClick={(e) => handleNavClick(e, "contact")} className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-gradient-to-r from-indigo-600 to-pink-600 text-white font-bold rounded-xl hover:shadow-xl transition-all">
+                Hire Me Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
     </>
   );
 };

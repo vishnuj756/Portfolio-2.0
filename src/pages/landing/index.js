@@ -1,396 +1,57 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { motion } from "framer-motion";
-import color from "../../utils/color";
-import ProfileImage from "../../assests/images/hero-img.jpg";
-import Button from "../../component/button";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import About from "../about us";
-import Service from "../service";
-
-import Resume from "../resume";
-import Contact from "../contact";
-
-import "../../assests/css/home.css"; // Custom CSS file
-import useResponsive from "../../utils/useResposnsive";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import Hero from "../../component/hero";
+import About from "../../component/about";
+import Services from "../../component/services";
+import Projects from "../../component/projects";
+import Testimonials from "../../component/testimonials";
+import Contact from "../../component/contact";
 import Seo from "../../component/seo";
 
 export default function Home() {
-  const { deviceType } = useResponsive();
-  const navigate = useNavigate();
-  const handleDownload = () => {
-    // Create an <a> element and click it programmatically
-    const link = document.createElement("a");
-    link.href = "/resume.pdf"; // Path in public folder
-    link.download = "Vishal_Sivhare_Resume.pdf"; // File name for download
-    link.click();
-  };
-  // Enhanced animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.6, -0.05, 0.01, 0.99],
-      },
-    },
-  };
-
-  const fadeInLeft = {
-    hidden: { opacity: 0, x: -80 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 1,
-        ease: [0.6, -0.05, 0.01, 0.99],
-        delay: 0.2,
-      },
-    },
-  };
-
-  const fadeInRight = {
-    hidden: { opacity: 0, x: 80 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 1,
-        ease: [0.6, -0.05, 0.01, 0.99],
-        delay: 0.4,
-      },
-    },
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const floatingAnimation = {
-    animate: {
-      y: [0, -10, 0],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const pulseAnimation = {
-    animate: {
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const isMobile = deviceType === "mobile";
+  useEffect(() => {
+    const path = window.location.pathname.replace('/', '');
+    if (path) {
+      setTimeout(() => {
+        const element = document.getElementById(path);
+        if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 300); // Wait for components to mount and render
+    }
+  }, []);
 
   return (
     <>
       <Seo
-        title="Vishal Sivhare - Portfolio | Full-Stack Developer Home"
-        description="Welcome to Vishal Sivhare's portfolio website. Explore my projects, skills, and services as a full-stack developer specializing in React and Node.js."
-        keywords="Vishal Sivhare, portfolio, full-stack developer, React developer, Node.js, web development, projects"
+        title="Vishal Sivhare | MERN Stack Developer"
+        description="Welcome to Vishal Sivhare's portfolio website. Explore my projects, skills, and services as a MERN Stack Developer."
+        keywords="Vishal Sivhare, portfolio, MERN stack developer, React developer, Node.js"
         image="https://vishalshivhare.netlify.app/assests/images/hero-img.jpg"
         gaTrackingId={process.env.REACT_APP_GA_ID}
       />
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "name": "Vishal Sivhare",
-          "jobTitle": "Full-Stack Developer",
-          "url": "https://vishalshivhare.netlify.app",
-          "sameAs": [
-            "https://linkedin.com/in/vishal-sivhare",
-            "https://github.com/vishal-sivhare"
-          ]
-        })}
-      </script>
-      <section
-        id="/"
-        className="hero-section position-relative overflow-hidden"
-        style={{ height: "fit-content" }}
-      >
-        {/* Enhanced Background Elements */}
-        <div className="background-effects">
-          <motion.div
-            className="bg-blob blob-1"
-            animate={{
-              x: [0, 100, 0],
-              y: [0, -50, 0],
-              rotate: [0, 180, 360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-          <motion.div
-            className="bg-blob blob-2"
-            animate={{
-              x: [0, -80, 0],
-              y: [0, 80, 0],
-              rotate: [0, -180, -360],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-          <motion.div
-            className="bg-blob blob-3"
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 90, 180],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </div>
+      
+      {/* Background Animated Elements — dark mode only */}
+      <div className="hidden dark:block fixed inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-indigo-400/30 to-pink-500/30 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-400/30 to-pink-500/30 rounded-full blur-3xl animate-blob" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute -bottom-32 left-1/2 w-96 h-96 bg-gradient-to-r from-blue-400/30 to-cyan-500/30 rounded-full blur-3xl animate-blob" style={{ animationDelay: '4s' }}></div>
+        <div id="particles-container"></div>
+      </div>
 
-        {/* Particle Effects */}
-        <div className="particles">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="particle"
-              animate={{
-                y: [0, -100, 0],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-              }}
-              style={{
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-              }}
-            />
-          ))}
-        </div>
-
-        <Container className="hero-container">
-          <Row className="align-items-center ">
-            {/* Content Column */}
-            <Col
-              xl={6}
-              lg={6}
-              md={12}
-              className={`order-2 order-lg-1 ${isMobile ? "text-center" : ""}`}
-            >
-              <motion.div
-                className="hero-content"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                {/* Greeting with enhanced animation */}
-                <motion.div
-                  variants={fadeInUp}
-                  className="greeting-section mb-3"
-                >
-                  <motion.span
-                    className="wave-emoji d-inline-block"
-                    animate={{
-                      rotate: [0, 14, -8, 14, -4, 10, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      repeatDelay: 3,
-                    }}
-                  ></motion.span>
-                  <h3
-                    className="greeting-text"
-                    style={{ color: color.primary }}
-                  >
-                    Hello, I'm
-                  </h3>
-                </motion.div>
-
-                {/* Name with typewriter effect */}
-                <motion.div variants={fadeInLeft} className="name-section mb-4">
-                  <h1 className="hero-name">
-                    <motion.span
-                      className="first-name text-white"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      Vishal
-                    </motion.span>
-                    <br />
-                    <motion.span
-                      className="last-name text-white"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      Shivhare
-                    </motion.span>
-                  </h1>
-                </motion.div>
-
-                {/* Enhanced Role Section */}
-                <motion.div variants={fadeInUp} className="role-section mb-4">
-                  <motion.div className="role-badge" {...pulseAnimation}>
-                    <h3 className="role-title">
-                      <motion.span
-                        animate={{
-                          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                        style={{
-                          background: `linear-gradient(90deg, ${color.primary}, #fff, ${color.primary})`,
-                          backgroundSize: "200% 100%",
-                          WebkitBackgroundClip: "text",
-                          WebkitTextFillColor: "transparent",
-                          backgroundClip: "text",
-                        }}
-                      >
-                        Front End Developer
-                      </motion.span>
-                    </h3>
-                  </motion.div>
-
-                  <motion.div className="location-info" whileHover={{ x: 5 }}>
-                    <Icon
-                      icon="material-symbols:location-on"
-                      className="location-icon"
-                    />
-                    <span>Available for remote work</span>
-                  </motion.div>
-                </motion.div>
-
-                {/* Enhanced Action Buttons */}
-                <motion.div variants={fadeInUp} className="action-buttons">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      onClick={() => {
-                        navigate("/contact-us");
-                      }}
-                      btnName="Hire Me"
-                      btnclass="hire-btn"
-                    />
-                  </motion.div>
-
-                  <motion.button
-                    className="cv-btn"
-                    onClick={()=>{
-                      handleDownload()
-                    }}
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: `0 10px 25px ${color.primary}40`,
-                    }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Icon icon="material-symbols:download" className="me-2" />
-                    Download CV
-                  </motion.button>
-                </motion.div>
-              </motion.div>
-            </Col>
-
-            {/* Image Column - Enhanced */}
-            <Col
-              xl={6}
-              lg={6}
-              md={12}
-              className="order-1 order-lg-2 position-relative"
-            >
-              <motion.div
-                className="image-container"
-                variants={fadeInRight}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                {...floatingAnimation}
-              >
-                <div className="image-wrapper">
-                  <motion.div
-                    className="image-frame"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img
-                      src={ProfileImage}
-                      alt="Vishal Shivhare - Front End Developer"
-                      className="profile-image"
-                    />
-
-                    {/* Enhanced image overlays */}
-                    <div className="image-overlay-1" />
-                    <div className="image-overlay-2" />
-
-                    {/* Decorative elements */}
-                    <motion.div
-                      className="decoration-ring-1"
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    />
-                    <motion.div
-                      className="decoration-ring-2"
-                      animate={{ rotate: -360 }}
-                      transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    />
-                  </motion.div>
-                </div>
-              </motion.div>
-            </Col>
-          </Row>
-        </Container>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="scroll-indicator"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <Icon icon="material-symbols:keyboard-arrow-down" />
-        </motion.div>
-      </section>
-
-      <About id="about-us" />
-      <Service id="service" />
-      {/* <Skill/> */}
-      <Resume id="resume" />
-      <Contact id="contact-us" />
+      <div className="relative z-10 w-full overflow-hidden">
+        <Hero />
+        <About />
+        <Services />
+        <Projects />
+        <Testimonials />
+        <Contact />
+      </div>
     </>
   );
 }

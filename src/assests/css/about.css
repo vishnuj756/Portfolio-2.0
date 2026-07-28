@@ -1,20 +1,21 @@
 /* About.css - Enhanced About Section Styles */
 
 :root {
-  --primary-color: #00D4AA;
-  --secondary-color: #1a1a1a;
+  --primary-color: #00E5FF;
+  --purple-accent: #7B2CBF;
+  --secondary-color: #1A233A;
   --accent-color: #ffffff;
-  --text-light: rgba(255, 255, 255, 0.8);
+  --text-light: #94A3B8;
   --text-muted: rgba(255, 255, 255, 0.6);
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --shadow-primary: rgba(0, 212, 170, 0.3);
-  --gradient-primary: linear-gradient(135deg, var(--primary-color), #00B4A6);
+  --glass-bg: rgba(26, 35, 58, 0.4);
+  --glass-border: rgba(0, 229, 255, 0.2);
+  --shadow-primary: rgba(0, 229, 255, 0.4);
+  --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--purple-accent));
 }
 
 /* About Section */
 .about-section {
-  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+  background: linear-gradient(135deg, #0B0F19 0%, #1A233A 100%);
   position: relative;
   overflow: hidden;
   padding: 5rem 0;
@@ -93,7 +94,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, transparent 50%, rgba(0, 212, 170, 0.2));
+  background: linear-gradient(135deg, transparent 50%, rgba(0, 229, 255, 0.2));
   border-radius: 20px;
   z-index: 4;
 }
@@ -184,9 +185,9 @@
 }
 
 .about-detail-item:hover {
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(0, 229, 255, 0.1);
   border-color: var(--primary-color);
-  box-shadow: 0 5px 20px rgba(0, 212, 170, 0.2);
+  box-shadow: 0 5px 20px rgba(0, 229, 255, 0.2);
 }
 
 .detail-icon {
@@ -317,9 +318,9 @@
 }
 
 .stat-card:hover {
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(0, 229, 255, 0.1);
   border-color: var(--primary-color);
-  box-shadow: 0 10px 30px rgba(0, 212, 170, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2);
 }
 
 .stat-icon {
@@ -382,9 +383,9 @@
 }
 
 .skill-item:hover {
-  background: rgba(0, 212, 170, 0.1);
+  background: rgba(0, 229, 255, 0.1);
   border-color: var(--primary-color);
-  box-shadow: 0 8px 25px rgba(0, 212, 170, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 229, 255, 0.2);
 }
 
 .skill-info {
@@ -691,7 +692,7 @@
   }
   
   .about-cv-btn {
-    box-shadow: 0 6px 20px rgba(0, 212, 170, 0.6) !important;
+    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.6) !important;
   }
 }
 
