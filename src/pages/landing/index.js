@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense, lazy } from "react";
 import Hero from "../../component/hero";
 import About from "../../component/about";
-import Services from "../../component/services";
-import Projects from "../../component/projects";
-import Testimonials from "../../component/testimonials";
-import Contact from "../../component/contact";
 import Seo from "../../component/seo";
+
+const Services = lazy(() => import("../../component/services"));
+const Experience = lazy(() => import("../../component/experience"));
+const Education = lazy(() => import("../../component/education"));
+const Projects = lazy(() => import("../../component/projects"));
+const Testimonials = lazy(() => import("../../component/testimonials"));
+const Contact = lazy(() => import("../../component/contact"));
 
 export default function Home() {
   useEffect(() => {
@@ -33,7 +36,6 @@ export default function Home() {
         description="Welcome to Vishal Sivhare's portfolio website. Explore my projects, skills, and services as a MERN Stack Developer."
         keywords="Vishal Sivhare, portfolio, MERN stack developer, React developer, Node.js"
         image="https://vishalshivhare.netlify.app/assests/images/hero-img.jpg"
-        gaTrackingId={process.env.REACT_APP_GA_ID}
       />
       
       {/* Background Animated Elements — dark mode only */}
@@ -47,10 +49,14 @@ export default function Home() {
       <div className="relative z-10 w-full overflow-hidden">
         <Hero />
         <About />
-        <Services />
-        <Projects />
-        <Testimonials />
-        <Contact />
+        <Suspense fallback={<div className="h-32 flex items-center justify-center text-gray-500">Loading...</div>}>
+          <Services />
+          <Experience />
+          <Education />
+          <Projects />
+          <Testimonials />
+          <Contact />
+        </Suspense>
       </div>
     </>
   );

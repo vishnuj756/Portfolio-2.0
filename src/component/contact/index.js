@@ -1,6 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [status, setStatus] = useState({ loading: false, success: false, error: null });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate fields
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+
+    setStatus({ loading: true, success: false, error: null });
+
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_EMAIL_SERVICE_ID,
+        process.env.REACT_APP_EMAIL_TEMPLATE,
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'New Contact Form Submission',
+          message: formData.message,
+        },
+        process.env.REACT_APP_EMAIL_PUBLIC_KEY
+      );
+
+      setStatus({ loading: false, success: true, error: null });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setStatus((prev) => ({ ...prev, success: false }));
+      }, 5000);
+
+    } catch (err) {
+      console.error("FAILED...", err);
+      setStatus({ loading: false, success: false, error: "Failed to send message. Please try again later." });
+    }
+  }
   return (
     <section id="contact" className="relative py-16 md:py-20 lg:py-32 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-7xl">
@@ -63,28 +110,47 @@ const Contact = () => {
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-10 shadow-2xl">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Your Name</label>
-                  <input type="text" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white" placeholder="John Doe" />
+                  <input type="text" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white" placeholder="John Doe" name="name" value={formData?.name || ""} onChange={handleChange} />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Your Email</label>
-                  <input type="email" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white" placeholder="john@example.com" />
+                  <input type="email" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white" placeholder="john@example.com" name="email" value={formData?.email || ""} onChange={handleChange} />
                 </div>
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Subject</label>
-                <input type="text" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white" placeholder="How can I help you?" />
+                <input type="text" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white" placeholder="How can I help you?" name="subject" value={formData?.subject || ""} onChange={handleChange} />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Message</label>
-                <textarea rows="5" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white resize-none" placeholder="Write your message here..."></textarea>
+                <textarea rows="5" className="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-gray-900 dark:text-white resize-none" placeholder="Write your message here..." name="message" value={formData?.message || ""} onChange={handleChange}></textarea>
               </div>
-              <button type="submit" className="w-full py-4 bg-gradient-to-r from-indigo-600 to-pink-600 text-white font-bold rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all">
-                Send Message
+              <button
+                type="submit"
+                disabled={status.loading}
+                className={`w-full py-4 text-white font-bold rounded-xl transition-all ${status.loading
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-indigo-600 to-pink-600 hover:shadow-lg hover:scale-[1.02]'
+                  }`}
+              >
+                {status.loading ? 'Sending...' : 'Send Message'}
               </button>
+
+              {status.success && (
+                <div className="p-4 mt-4 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg text-center font-medium">
+                  Message sent successfully! I'll get back to you soon.
+                </div>
+              )}
+
+              {status.error && (
+                <div className="p-4 mt-4 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg text-center font-medium">
+                  {status.error}
+                </div>
+              )}
             </form>
           </div>
         </div>

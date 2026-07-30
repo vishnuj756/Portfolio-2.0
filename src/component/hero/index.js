@@ -136,8 +136,7 @@ const Hero = () => {
 
                 {/* Profile circle */}
                 <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/30 dark:border-gray-800/30 shadow-2xl animate-glow flex items-center justify-center bg-gradient-to-br from-indigo-500 via-pink-500 to-purple-600">
-                  {/* <span className="text-white text-6xl font-black">VS</span> */}
-                  <img src={heroImage} alt="Hero" className='w-full h-full object-cover' />
+                  <img src={heroImage} alt="Hero" className="w-full h-full object-cover" fetchpriority="high" />
                 </div>
 
                 {/* Orbiting icon dots on the outer ring */}

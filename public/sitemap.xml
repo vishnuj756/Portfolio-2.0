@@ -8,4 +8,29 @@
        <changefreq>daily</changefreq>
        <priority>1.0000</priority>
   </url>
+  <url>
+       <loc>https://vishalshivhare.netlify.app/about</loc>
+       <changefreq>weekly</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://vishalshivhare.netlify.app/services</loc>
+       <changefreq>weekly</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://vishalshivhare.netlify.app/projects</loc>
+       <changefreq>weekly</changefreq>
+       <priority>0.9000</priority>
+  </url>
+  <url>
+       <loc>https://vishalshivhare.netlify.app/testimonials</loc>
+       <changefreq>weekly</changefreq>
+       <priority>0.7000</priority>
+  </url>
+  <url>
+       <loc>https://vishalshivhare.netlify.app/contact</loc>
+       <changefreq>monthly</changefreq>
+       <priority>0.8000</priority>
+  </url>
 </urlset>

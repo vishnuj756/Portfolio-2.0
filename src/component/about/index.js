@@ -1,5 +1,7 @@
 import React from 'react';
 import heroImage from "../../assests/images/pf-image.png";
+import Experience from "../experience/index";
+import Education from "../education/index"
 const About = () => {
   return (
     <section id="about" className="relative py-16 md:py-20 lg:py-32 px-4 sm:px-6 lg:px-8">
@@ -14,8 +16,7 @@ const About = () => {
           <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <div className="h-[300px] md:h-[500px] bg-gradient-to-br from-indigo-500 via-pink-500 to-purple-600 flex items-center justify-center">
-                {/* <span className="text-white text-8xl font-black opacity-40">VS</span> */}
-                <img src={heroImage} alt="Hero" className='w-full h-full object-cover' />
+                <img src={heroImage} alt="Hero" className="w-full h-full object-cover" loading="lazy" />
               </div>
             </div>
 
@@ -99,7 +100,7 @@ const About = () => {
 
             <div className="flex flex-wrap gap-4 pt-6">
               <a href="#contact" className="inline-flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 bg-gradient-to-r from-indigo-600 to-pink-600 text-white font-bold rounded-xl hover:shadow-2xl hover:scale-105 transition-all">Hire Me</a>
-              <a href="#!" className="inline-flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold rounded-xl border-2 border-gray-300 dark:border-gray-700 hover:border-indigo-500 hover:scale-105 transition-all">Download CV</a>
+              <a href="/Vishal_Shivhare_Resume_Updated.pdf" download="Vishal_Shivhare_Resume.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 md:px-8 py-2 md:py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-bold rounded-xl border-2 border-gray-300 dark:border-gray-700 hover:border-indigo-500 hover:scale-105 transition-all">Download CV</a>
             </div>
           </div>
         </div>
@@ -128,13 +129,14 @@ const About = () => {
           </div>
           <div className="text-center group">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 text-white mb-4 group-hover:scale-110 transition-transform">
-              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
             </div>
-            <div className="text-4xl font-black text-gray-900 dark:text-white mb-2">100%</div>
-            <div className="text-gray-600 dark:text-gray-400 font-medium">Satisfaction</div>
           </div>
         </div>
       </div>
+
+      <Experience />
+      <Education />
     </section>
   );
 };

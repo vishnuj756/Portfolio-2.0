@@ -49,7 +49,7 @@ const Testimonials = () => {
               </div>
 
               <div className="flex items-center gap-4 mb-6 relative z-10">
-                <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full ring-4 ring-indigo-50 dark:ring-gray-800" />
+                <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full ring-4 ring-indigo-50 dark:ring-gray-800" loading="lazy" width="64" height="64" />
                 <div>
                   <h4 className="text-lg font-bold text-gray-900 dark:text-white">{testimonial.name}</h4>
                   <p className="text-sm text-indigo-600 dark:text-indigo-400 font-medium">{testimonial.role}</p>
